@@ -1,0 +1,29 @@
+<html>
+    <header>
+        <title>
+            Big Motoring World
+        </title>
+    </header>
+    <body style="background-color:bisque;">
+        <h1>
+            Big Motoring World
+        </h1>
+        <h2>
+            refresh page to generate new car and colour
+        </h2>
+
+        <p>
+            Congratulations! Your {{ colour }} {{ car_name }} is worth {{ price }}
+         </p>
+         
+         <h3> Previous car prices </h3>
+         
+         <p>
+             {% for i in cars %}
+             {{ i.car_manufacturer }} - {{ i.car_colour }} :  {{ i.price }}
+             <br>
+             {% endfor %}
+         </p>
+         
+     </body>
+</html>

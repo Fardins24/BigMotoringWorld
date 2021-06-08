@@ -1,0 +1,21 @@
+version: '2.2'
+services:
+  service1-frontend:
+    container_name: service1-frontend
+    image: fardins24/car-project_service1-frontend
+    build: ./service_1
+    ports:
+    - "5000:5000"
+  service2-backend:
+    image: car-project_service2-backend
+    container_name: service2-backend
+    build: ./service_2
+  service3-backend:
+    image: car-project_service3-backend
+    container_name: service3-backend
+    build: ./service_3
+  service4-backend:
+    image: car-project_service4-backend
+    container_name: service4-backend
+    build: ./service_4
+  
