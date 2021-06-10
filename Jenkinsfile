@@ -31,7 +31,7 @@ pipeline {
                 // docker-compose push
                 sh "docker-compose push"
             }    
-         }
+        }
          stage("Config Management (Ansible)") {
             steps {
                 //  install ansible on jenkins machine for the Jenkins user
