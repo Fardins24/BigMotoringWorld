@@ -1,4 +1,4 @@
-flask
+cdflask
 requests
 pymysql
 flask_sqlalchemy
