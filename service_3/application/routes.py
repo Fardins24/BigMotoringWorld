@@ -5,4 +5,4 @@ import random
 @app.route("/colour", methods=["GET"])
 def get_colour():
     colours = ["red", "blue",  "yellow", "black"]
-    return Response(str(random.choice(colours)), mimetype='text/plain')
+    return Response(random.choice(colours))

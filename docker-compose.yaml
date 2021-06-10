@@ -1,11 +1,15 @@
-version: '2.2'
+version: '3.8'
 services:
   service1-frontend:
     container_name: service1-frontend
     image: fardins24/car-project_service1-frontend
     build: ./service_1
     ports:
-    - "5000:5000"
+    - target: 5000
+      published: 80
+      protocol: tcp
+    environment: 
+      DATABASE_URI: ${DATABASE_URI}
   service2-backend:
     image: car-project_service2-backend
     container_name: service2-backend
@@ -18,4 +22,4 @@ services:
     image: car-project_service4-backend
     container_name: service4-backend
     build: ./service_4
-  
+ 

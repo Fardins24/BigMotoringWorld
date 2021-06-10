@@ -13,14 +13,14 @@
         </h2>
 
         <p>
-            Congratulations! Your {{ colour }} {{ car_name }} is worth {{ price }}
+            Congratulations! Your {{ colour }} {{ car_name }} is worth £{{ price }}
          </p>
          
          <h3> Previous car prices </h3>
          
          <p>
              {% for i in cars %}
-             {{ i.car_manufacturer }} - {{ i.car_colour }} :  {{ i.price }}
+             {{ i.car_manufacturer }} ({{ i.car_colour }}) -  £{{ i.price }}
              <br>
              {% endfor %}
          </p>
