@@ -1,6 +1,11 @@
 pipeline {
     agent any
     stages {
+        stage("Install requirements") {
+            steps {
+                sh "bash jenkins/install-requirements.sh"   
+            }
+        }   
         stage("Test") {
             steps {
                 // pytest 
@@ -13,16 +18,16 @@ pipeline {
             steps {
                 // install docker and docker compose
                 // docker-compose build
-                sh "echo build"
+                sh "docker-compose build"
             }    
         }
         stage("Push") {
             steps {
                 // install docker and docker compose
                 // docker-compose push
-                sh "echo push"
+                sh "docker-compose push"
             }    
-        }
+         }
          stage("Config Management (Ansible)") {
             steps {
                 //  install ansible on jenkins machine for the Jenkins user
