@@ -1,50 +1,42 @@
-pipeline{
+pipeline {
     agent any
-    stages{
+    stages {
         stage("Test") {
             steps {
-            // pytest 
-            // run for each service
-            // produce cov reports
-            sh "bash jenkins/test.sh"   
+                // pytest 
+                // run for each service
+                // produce cov reports
+                sh "bash jenkins/test.sh"   
+            }
         }   
-    }
-           
         stage("Build") {
-            steps{
-                script{
-                    if (env.rollback == 'false'){
-                        sh "docker-compose build --parallel --build-arg APP_VERSION=${app_version} && docker-compose push"
-                        sh "docker system prune -af"
-                        sh "bash jenkins/build_images.sh"
-                    }    
-                }
+            steps {
+                // install docker and docker compose
+                // docker-compose build
+                sh "echo build"
+            }    
+        }
+        stage("Push") {
+            steps {
+                // install docker and docker compose
+                // docker-compose push
+                sh "echo push"
+            }    
+        }
+         stage("Config Management (Ansible)") {
+            steps {
+                //  install ansible on jenkins machine for the Jenkins user
+                // ansible-playbook -i inventory.yaml playbook.yaml
+                sh "echo config"
             }
         }
-        stage("Config Management (Ansible)"){
-            steps{
-                // write out playbook, inventory
-                // with roles
-                // ssh keys generated from jenkins machine for jenkins user (ssh-keygen)
-                // sudo su - jenkins, install ansible on this machine for jenkins
-                // jenkins runs playbook
-                sh "cd ansible && /home/jenkins/.local/bin/ansible-playbook -i inventory playbook.yaml"
+        stage("Deploy") {
+            steps {
+                // create swarm infrastructure
+                // copy over docker-compose.yaml
+                // ssh: docker stack deploy --compose-file docker-compose.yaml bigmotoringworld
+                sh "echo deploy"
             }
         }
-        stage("Deploy"){
-            steps{
-                // copy docker-compose.yaml over ssh (scp command)
-                // set env variables on swarm manager
-                // ssh into swarm manager to deploy the stack
-                sh "bash jenkins/deploy.sh"
-
-            }
-        }
-    }
-    post {
-        always {
-            junit '**/junit.xml'
-            cobertura coberturaReportFile: '**/coverage.xml', failNoReports: false, failUnstable: false, onlyStable: false
-        }    
     }
 }
