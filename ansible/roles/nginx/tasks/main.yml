@@ -1,22 +1,19 @@
 ---
 # tasks file for nginx
-- hosts: all
-  become: true
-  tasks:
-  - name: Install NGINX
-    apt:
-      name: nginx
-      state: latest
-      update_cache: true
-  - name: Start NGINX Service
-    service:
-      name: nginx
-      state: started
-  - name: Add nginx conf
-    copy:
-      src: nginx.conf
-      dest: /etc/nginx/nginx.conf
-  - name: Restart nginx
-    service: 
-      name: nginx
-      state: restarted
+- name: Install NGINX
+  apt:
+    name: nginx
+    state: latest
+    update_cache: true
+- name: Start NGINX Service
+  service:
+    name: nginx
+    state: started
+- name: Add nginx conf
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+- name: Restart nginx
+  service: 
+    name: nginx
+    state: restarted
