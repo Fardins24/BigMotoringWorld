@@ -1,0 +1,44 @@
+---
+# tasks file for docker
+- name: Install APT requirements
+  apt:
+    state: latest
+    update_cache: yes
+    pkg:
+    - apt-transport-https 
+    - ca-certificates 
+    - curl 
+    - gnupg 
+    - lsb-release 
+    - python3-pip
+    - python3
+
+- name: Add Docker GPG Key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add Docker APT Repo
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename|lower }} stable
+    state: present
+
+- name: Install Docker with APT
+  apt:
+    state: latest
+    update_cache: yes
+    pkg:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: pip docker
+  pip:
+    executable: pip3
+    name: docker
+
+- name: Add a jenkins user  
+  ansible.builtin.user:
+    name: jenkins
+    groups: docker
+    append: yes
