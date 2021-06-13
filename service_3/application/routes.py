@@ -4,5 +4,5 @@ import random
 
 @app.route("/colour", methods=["GET"])
 def get_colour():
-    colours = ["red", "blue",  "yellow", "black", "white", "green"]
+    colours = ["red", "blue",  "yellow", "black"]
     return Response(random.choice(colours))
