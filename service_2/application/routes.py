@@ -4,5 +4,5 @@ import random
 
 @app.route("/car_name", methods=["GET"])
 def get_car():
-    cars = ["Ford", "Lamborghini", "Mercedes", "BMW", "Audi", "Toyota", "Nissan"]
+    cars = ["Ford", "Lamborghini", "Mercedes", "BMW", "Audi"]
     return Response(random.choice(cars))
