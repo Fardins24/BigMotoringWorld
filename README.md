@@ -15,6 +15,7 @@
    * [Swarm Configuration](#swarm-configuration)
    * [Services Setup](#Services-Setup)
 * [Testing](#testing)
+* [Front-End Design](#Front-End)
 * [Future Improvements](#future-improvements)
 * [Author](#author)
 
@@ -118,6 +119,10 @@ Also for this service the unit test was conducted with 100% coverage. This shows
 Service for also shows 97% console output which indicates that service 2 and service 3 generates the correct price for each car and colour.
 
 ![service4-test](https://github.com/Fardins24/assetsNew/blob/master/s4t.png?raw=true)
+
+## Front-End 
+When navigating to port 80 (default http port) on the NGINX's IP.
+![frontend-design](https://github.com/Fardins24/assetsNew/blob/master/frontend.png?raw=true)
 
 ## Future Improvements 
 In any project there are always a few improvements which could be considered in the future. However, to name a few:
