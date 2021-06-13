@@ -15,6 +15,7 @@
    * [Swarm Configuration](#swarm-configuration)
    * [Services Setup](#Services-Setup)
 * [Testing](#testing)
+* [Front-End Design](#Front-End)
 * [Future Improvements](#future-improvements)
 * [Author](#author)
 
@@ -51,7 +52,7 @@ The list which was created are as follows:
 •	Complete - Tasks that are finished.
 •	Issues - Any problems along the way.
 
-![trello board image 1]()
+![trello board image 1](https://github.com/Fardins24/assetsNew/blob/master/tb1.png?raw=true)
 ![trello board image 2](https://github.com/Fardins24/assetsNew/blob/master/tb2.png?raw=true)
 
 ### Risk Assessment
@@ -59,20 +60,20 @@ Below is the risk assessment for the project split up into two sections before a
 
 <h2>Before</h2>
 
-![risk-assessment1]()
+![risk-assessment1](https://github.com/Fardins24/assetsNew/blob/master/rsb.png?raw=true)
 
 <h2>After</h2>
 
-![risk-assessment2]()
+![risk-assessment2](https://github.com/Fardins24/assetsNew/blob/master/rsa.png?raw=true)
 
 ### Entity Relationship Diagram
 For the development of this project, only one table structure was created for the database. The reason for this is that the only information that will be stored into the database will be the ID, car manufacturer, car colour and price. Therefore, there are no other relationships in the application. This table will help the developer create data that will persevere in the database after each refresh. The database is set up on a MYSQL server on Google Cloud Platform (GCP). 
-![Car-erd]()
+![Car-erd](https://github.com/Fardins24/assetsNew/blob/master/erd.png?raw=true)
 
 ### CI Pipeline
 The image below portrays the CI Pipeline used for this project. Firstly, to achieve the project goal, a task is taken from the Trello board to be worked on. After, completing a task the code is the pushed up to a Version Control System. For this project, GitHub was commenced as the chosen version control system, which then triggers a web-hook. By initiating a web-hook, this then starts a Jenkins pipeline. Further tests are completed by implementing a unit test and mock test. After the testing was completed the next step is now building and pushing images using Docker-Compose to Docker hub (artefact repository). Jenkins will then initialise Ansible to configure the external nodes; this involves installing Docker on them. Ansible also configures NGINX node to act as a Load-Balancer. The user connects to the load balancer and application is now live.
 
-![CI-Pipeline]()
+![CI-Pipeline](https://github.com/Fardins24/assetsNew/blob/master/cipipeline.png?raw=true)
 
 ## Software Infrastructure
 ### Jenkins 
@@ -81,43 +82,47 @@ Jenkins is an open source automation server that automates many parts of the pro
 * Testing – This produces coverage report on the console. The reports generated can be used to help debug issues that occur.
 * Build and Push Images – The second stage, is building the image and pushing up the image to Docker hub. For this to proceed, Docker and Docker-Compose needs to be installed.
 * Ansible configuration – The third stage in this Pipeline is when Jenkins is running the Ansible folder. This initialises Ansible to configure several servers at once including:– 
-* * Installing the necessary dependencies
-* * Installing Swarm, to initialise Swarm Manager and Swarm Worker nodes 
-* * Configuring the NGINX Load-Balancer.
+ * Installing the necessary dependencies
+ * Installing Swarm, to initialise Swarm Manager and Swarm Worker nodes 
+ * Configuring the NGINX Load-Balancer.
 * Deploy Stack – The application will be deployed as a stack across the Swarm nodes, making it accessible by the users via the NIGNX Load-Balancer.
 
 Details on the stages used in the Jenkins pipeline can be found in the jenkinsfile. 
 
 ### Swarm Configuration
 The image below portrays the basic setup of the Swarm. After Ansible installs Docker on both Swarm-Manager and Swarm-worker nodes, it then initialises the Swarm on the manager node and joins the worker nodes.
-![swarm]()
+![swarm](https://github.com/Fardins24/assetsNew/blob/master/swarm.png?raw=true)
 
 ### Services Setup
 As written above, the project task must include four services as part of the project proposal. Service 1 will be the Frontend and will display the information generated from services 2,3 and 4. Service 2 and 3 which is the Backend generates a car make (service 2) and a car colour (service 3) when a get to request is sent from service 1.  Service 4 is automated, when service 2 and 3 are sent to service 1 via a get request, which will then be sent to service 4 via a post request. Here, service 4 will generate a price based on the information it receives and then sends it to service 1.
-![services]()
+![services](https://github.com/Fardins24/assetsNew/blob/master/services.png?raw=true)
 
 ## Testing
 For this project, I have decided to implement Pytest to run unit and unit mock test on the application. Unit test allows the developer to validate each function on the application to an expected response. Unit mock test allows the developer to mock responses from components in each service allowing easier and more efficient unit testing than would otherwise be possible.
 
-<h3>Service #1</h3>
+<h2>Service #1</h2>
 Testing service 1 requires input from the other three services. Patch is imported from the Python library and is implemented for this test. In return a mock test was conducted which will produce results that will be expected from the live application.
 
-![service1-test]()
+![service1-test](https://github.com/Fardins24/assetsNew/blob/master/s1t.png?raw=true)
 
-<h3>Service #2</h3>
+<h2>Service #2</h2>
 For this service the unit test produced 100% coverage. Therefore, this connotes that each individual car that will be selected at random through a get request will have the required response.
 
-![service2-test]()
+![service2-test](https://github.com/Fardins24/assetsNew/blob/master/s2t.png?raw=true)
 
-<h3>Service #3</h3>
+<h2>Service #3</h2>
 Also for this service the unit test was conducted with 100% coverage. This shows that from individual car colour that was picked at random, it will generate the required response.
 
-![service3-test]()
+![service3-test](https://github.com/Fardins24/assetsNew/blob/master/s3t.png?raw=true)
 
-<h3>Service #4</h3>
-Service for also shows 100% console output which indicates that service 2 and service 3 generates the correct price for each car and colour.
+<h2>Service #4</h2>
+Service for also shows 97% console output which indicates that service 2 and service 3 generates the correct price for each car and colour.
 
-![service4-test]()
+![service4-test](https://github.com/Fardins24/assetsNew/blob/master/s4t.png?raw=true)
+
+## Front-End 
+When navigating to port 80 (default http port) on the NGINX's IP.
+![frontend-design](https://github.com/Fardins24/assetsNew/blob/master/frontend.png?raw=true)
 
 ## Future Improvements 
 In any project there are always a few improvements which could be considered in the future. However, to name a few:
